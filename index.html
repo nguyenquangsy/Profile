@@ -661,10 +661,10 @@
                                     <form>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" placeholder="Tên bạn" id="your_name"/>
+                                                <input type="email" class="form-control" placeholder="Email của bạn" id="your_mail"/>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="email" class="form-control" placeholder="Email của bạn" id="your_mail"/>
+                                                <input type="password" class="form-control" placeholder="Mật khẩu email" id="pass_mail"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -673,7 +673,7 @@
                                         <div class="form-group">
                                             <textarea class="form-control" rows="5" placeholder="Nội dung" id="body"></textarea>
                                         </div>
-                                        <div><button class="btn" type="submit" onclick="alert('chức năng đang dần hoàn thiện')">Gửi mail</button></div>
+                                        <div><button class="btn" type="button" onclick="sendEmail()">Gửi mail</button></div>
                                     </form>
                                 </div>
                             </div>
@@ -711,9 +711,7 @@
         <script src="lib/waypoints/waypoints.min.js"></script>
         <script src="lib/isotope/isotope.pkgd.min.js"></script>
         <script src="lib/lightbox/js/lightbox.min.js"></script>
-        <script src=
-            "https://smtpjs.com/v3/smtp.js">
-        </script>
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
@@ -722,24 +720,22 @@
 
 <script type="text/javascript">
     function sendEmail() {
-        var user = "xyzsy8642@gmai.com"
-        var pass = "Hoanghong2108"
-        var title = $("title").val()
-        var body = $("body").val()
-        var name = $("your_name")
-        var receiver = "xyzsy8642@gmail.com"
+        var email_sender = $("#your_mail").val()
+        var pass = $("#pass_mail").val()
+        var title = $("#title").val()
+        var body = $("#body").val()
+        var email_receiver = "xyzsy8642@gmail.com"
 
         Email.send({
             Host: "smtp.gmail.com", 
-            Username: "sender@email_address.com",
-            Password: "Enter your password",
-            To: 'receiver@email_address.com',
-            From: "sender@email_address.com",
-            Subject: "Sending Email using javascript",
-            Body: "Well that was easy!!",
-        })
-            .then(function (message) {
-            alert("mail sent successfully")
-            });
-        }
+            Username: email_sender,
+            Password: pass,
+            To: email_receiver,
+            From: email_sender,
+            Subject: title,
+            Body: body,
+        }).then(function (message) {
+            alert(message)
+        });
+    }
 </script>
